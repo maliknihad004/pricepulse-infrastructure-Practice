@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Terraform variables
+*.tfvars
+
+# SSH private keys
+*.pem
+id_rsa
+id_ed25519
+
+# Ansible
+*.retry

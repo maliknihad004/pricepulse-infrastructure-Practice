@@ -1,0 +1,39 @@
+---
+- name: Configure and deploy PricePulse
+  hosts: pricepulse
+  become: true
+
+  vars:
+    app_directory: /opt/pricepulse
+    app_repository: "https://github.com/maliknihad004/pricepulse.git"
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install required packages
+      apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+          - git
+        state: present
+
+    - name: Enable Docker service
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Clone PricePulse repository
+      git:
+        repo: "{{ app_repository }}"
+        dest: "{{ app_directory }}"
+        version: main
+
+    - name: Start PricePulse with Docker Compose
+      command:
+        cmd: docker compose up -d --build
+        chdir: "{{ app_directory }}"
