@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
@@ -32,3 +33,23 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+
+  ansible:
+    name: Ansible Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ansible
+        run: |
+          python3 -m pip install --user ansible
+
+      - name: Ansible Syntax Check
+        working-directory: ansible
+        run: ansible-playbook --syntax-check playbook.yml
+
+      - name: Ansible Local Syntax Check
+        working-directory: ansible
+        run: ansible-playbook --syntax-check playbook-local.yml
