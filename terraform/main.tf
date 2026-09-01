@@ -127,7 +127,7 @@ resource "aws_instance" "pricepulse" {
 
 resource "aws_key_pair" "pricepulse" {
   key_name   = "pricepulse-key"
-  public_key = file("~/.ssh/patientping-key.pub")
+  public_key = var.ssh_public_key
 
   tags = {
     Name = "pricepulse-key"
