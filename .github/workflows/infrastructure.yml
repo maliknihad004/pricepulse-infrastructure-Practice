@@ -14,7 +14,7 @@ terraform:
 name: Terraform Validation
 runs-on: ubuntu-latest
 
-```
+
 defaults:
   run:
     working-directory: terraform
@@ -34,20 +34,19 @@ steps:
 
   - name: Terraform Validate
     run: terraform validate
-```
+
 
 ansible:
 name: Ansible Validation
 runs-on: ubuntu-latest
 
-```
+
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
 
   - name: Setup Ansible
-    run: |
-      python3 -m pip install --user ansible
+    run: python3 -m pip install --user ansible
 
   - name: Ansible Syntax Check
     working-directory: ansible
